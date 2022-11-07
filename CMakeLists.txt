@@ -21,5 +21,6 @@ add_definitions(-DLIZKIT_DEBUG)
 add_subdirectory(Game39541)
 add_subdirectory(Lizkit)
 add_subdirectory(glfw)
+add_subdirectory(glad)
 
 set(VS_STARTUP_PROJECT Game39541)
