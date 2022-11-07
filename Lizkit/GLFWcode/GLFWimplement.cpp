@@ -7,10 +7,9 @@
 
 namespace Lizkit {
 	GLFWimplement::GLFWimplement(){
-		if (!gladLoadGLLoader((GLADloadproc)glfwGetProcAddress)) {
+		/** if (!gladLoadGLLoader((GLADloadproc)glfwGetProcAddress)) {
 			LIZKIT_LOG("Failed to initialize GLAD");
-		}
-
+		}**/
 
 		glfwInit();
 		glfwWindowHint(GLFW_CONTEXT_VERSION_MAJOR, 3);
