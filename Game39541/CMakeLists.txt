@@ -1,4 +1,3 @@
-
 add_executable(Game39541 Game39541.cpp)
 
 include_directories(../Lizkit)

@@ -1,6 +1,8 @@
 #include "pch.h"
 
 #include "LizkitApp.h"
+#include "LizkitWindow.h"
+
 
 
 namespace Lizkit {
@@ -9,11 +11,17 @@ namespace Lizkit {
     }
 
     void LizkitApp::Run() {
-        int updateCount = 1;
+
         LIZKIT_LOG("Lizkit running.")
+
+        LizkitWindow::Init();
+        LizkitWindow::GetWindow()->Create(600, 400, "Test");
             while (true) {
-                OnUpdate();
-                updateCount++;
+                 LizkitWindow::GetWindow()->SwapBuffers();
+
+                 OnUpdate();
             }
+          
     }
+    
 }

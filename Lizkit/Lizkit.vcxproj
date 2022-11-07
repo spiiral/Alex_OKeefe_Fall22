@@ -47,11 +47,12 @@
     <ClCompile>
       <WarningLevel>Level3</WarningLevel>
       <SDLCheck>true</SDLCheck>
-      <PreprocessorDefinitions>LIZKIT_LIB;LIZKIT_WIN;LIZKIT_DEBUG</PreprocessorDefinitions>
+      <PreprocessorDefinitions>LIZKIT_LIB;LIZKIT_WINDOWS;LIZKIT_DEBUG</PreprocessorDefinitions>
       <ConformanceMode>true</ConformanceMode>
       <LanguageStandard>stdcpp17</LanguageStandard>
       <PrecompiledHeader>Create</PrecompiledHeader>
       <PrecompiledHeaderFile>pch.h</PrecompiledHeaderFile>
+      <AdditionalIncludeDirectories>$(SolutionDir)glad\include;$(SolutionDir)Lizkit;$(SolutionDir)glfw\include</AdditionalIncludeDirectories>
     </ClCompile>
     <Link>
       <SubSystem>Console</SubSystem>
@@ -69,6 +70,7 @@
       <LanguageStandard>stdcpp17</LanguageStandard>
       <PrecompiledHeader>Create</PrecompiledHeader>
       <PrecompiledHeaderFile>pch.h</PrecompiledHeaderFile>
+      <AdditionalIncludeDirectories>$(SolutionDir)glad\include;$(SolutionDir)Lizkit;$(SolutionDir)glfw\include</AdditionalIncludeDirectories>
     </ClCompile>
     <Link>
       <SubSystem>Console</SubSystem>
@@ -78,14 +80,27 @@
     </Link>
   </ItemDefinitionGroup>
   <ItemGroup>
+    <ClInclude Include="GLFWcode\GLFWimplement.h" />
+    <ClInclude Include="LizkitWindow.h" />
     <ClInclude Include="pch.h" />
     <ClInclude Include="Lizkit.h" />
     <ClInclude Include="LizkitApp.h" />
     <ClInclude Include="LizkitUtil.h" />
+    <ClInclude Include="WindowImplement.h" />
   </ItemGroup>
   <ItemGroup>
+    <ClCompile Include="GLFWcode\GLFWimplement.cpp" />
     <ClCompile Include="LizkitApp.cpp" />
+    <ClCompile Include="LizkitWindow.cpp" />
     <ClCompile Include="pch.cpp" />
+  </ItemGroup>
+  <ItemGroup>
+    <ProjectReference Include="..\glad\glad.vcxproj">
+      <Project>{277a55e9-c9db-41e4-82e0-d376f354fe85}</Project>
+    </ProjectReference>
+    <ProjectReference Include="..\glfw\build\src\glfw.vcxproj">
+      <Project>{98499bc0-480a-37fd-913a-636466e3be81}</Project>
+    </ProjectReference>
   </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />
   <ImportGroup Label="ExtensionTargets">

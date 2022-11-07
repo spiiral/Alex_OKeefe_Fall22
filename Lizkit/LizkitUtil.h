@@ -7,7 +7,7 @@
         return 0; \
     }
 
-#ifdef LIZKIT_WIN
+#ifdef LIZKIT_WINDOWS
     #ifdef LIZKIT_LIB
         #define LIZKIT_API __declspec(dllexport)
     #else
