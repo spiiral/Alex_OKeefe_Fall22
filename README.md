@@ -1,5 +1,4 @@
 # OKeefe_Alex_Fall22
-README\n
 How to run:
 1. clone repo using git clone <link> --recursive
 2. move "build" folder into "glfw" folder
