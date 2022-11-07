@@ -15,7 +15,7 @@ else()
 	add_definitions(-DLIZKIT_LINUX)
 endif()
 
-
+add_definitions(-DLIZKIT_DEBUG)
   
 add_subdirectory(Game39541)
 add_subdirectory(Lizkit)
