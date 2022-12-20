@@ -11,9 +11,9 @@ namespace Lizkit {
 #ifdef LIZKIT_WINDOWS
 			mInstance->mImplement = new GLFWimplement;
 #elif defined LIZKIT_MAC
-			mInstance - mImplement = new GLFWimplement;
+			mInstance->mImplement = new GLFWimplement;
 #else
-			mInstance - mImplement = new GLFWimplement;
+			mInstance->mImplement = new GLFWimplement;
 #endif
 		}
 	}
@@ -23,9 +23,26 @@ namespace Lizkit {
 
 	void LizkitWindow::Create(int width, int height, const std::string& windowName) {
 		mImplement->Create(width, height, windowName);
+
+		mWidth = width;
+		mHeight = height;
 	}
 
 	void LizkitWindow::SwapBuffers() {
 		mImplement->SwapBuffers();
+	}
+
+	int LizkitWindow::GetWidth() const {
+		return mWidth;
+	}
+
+	int LizkitWindow::GetHeight() const {
+		return mHeight;
+	}
+	void LizkitWindow::SetKeyPressedCallback(const std::function<void(const KeyPressedEvent&)>& keyPressedCallback){
+		mImplement->SetKeyPressedCallback(keyPressedCallback);
+	}
+	void LizkitWindow::SetKeyReleasedCallback(const std::function<void(const KeyReleasedEvent&)>& keyReleasedCallback){
+		mImplement->SetKeyReleasedCallback(keyReleasedCallback);
 	}
 }
