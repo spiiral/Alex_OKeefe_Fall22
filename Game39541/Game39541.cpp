@@ -8,6 +8,7 @@
 #include "Counter.h"
 #include "Unit.h"
 #include <cmath>
+#include <random>
 
 
 class Game39541 : public Lizkit::LizkitApp {
@@ -17,18 +18,12 @@ public:
         if (mGameState == GameState::PLAYING) {
             if (mJumpState == CharState::JUMP) {
                 mJumpTime++;
-                if (mJumpTime % 60 == 0) {
-                    LIZKIT_LOG("one second has passed")
-                }
                 mJumpPos = ((-0.45) * pow((mJumpTime - 30), 2)) + 500;
                 mCharacter.SetY(mJumpPos);
-
-                LIZKIT_LOG(mJumpPos)
-
-                    if (mJumpPos <= 100) {
-                        mJumpPos == 100;
-                        mJumpState = CharState::STILL;
-                    }
+                if (mJumpPos <= 100) {
+                    mJumpPos == 100;
+                    mJumpState = CharState::STILL;
+                }
             }
 
             if (mState == CharState::MOVE_RIGHT) {
@@ -39,19 +34,74 @@ public:
                 if (mCharacter.GetX() > 0)
                     mCharacter.ChangeX(-8);
             }
-            mCar.ChangeX(-mCarSpeed);
+          
+            switch (mCarState) {
+            case CarState::NORMAL:
+                mCar.ChangeX(-mCarSpeed);
+                break;
+
+            case CarState::STOPFAST:
+                if (mCar.GetX() >= 550) {
+                    mCar.ChangeX(-mCarSpeed);
+                }
+                if (mCar.GetX() <= 550 && mCarTimer < 60) {
+                    mCar.SetX(550);
+                    mCarTimer++;
+                }
+                if (mCarTimer >= 60) {
+                    mCar.ChangeX(1.3 * -mCarSpeed);
+                }
+                break;
+
+            case CarState::SLOWFAST:
+                if (mCar.GetX() >= 500) {
+                    mCar.ChangeX(0.67 * -mCarSpeed);
+                }
+                else {
+                    mCar.ChangeX(1.3 * -mCarSpeed);
+                }
+                break;
+
+            case CarState::TRICK:
+                if (mCar.GetX() >= 600) {
+                    mCar.ChangeX(1.3 * -mCarSpeed);
+                }
+                else if (mCar.GetX() >= 400 && mCar.GetX() <= 600) {
+                    mCar.ChangeX(0.67 * -mCarSpeed);
+                }
+                else {
+                    mCar.ChangeX(1.3 * -mCarSpeed);
+                }
+                break;
+                
+            }
             if (mCar.OverlapsWith(mCharacter)) {
                 mCharacter.ChangeHP(-1);
                 mCar.ChangeHP(-1);
                 mRoundLost = true;
             }
             if ((mCar.GetX()) + mCar.GetPicture().GetWidth() < -800 || mRoundLost) {
+                mCarTimer = 0;
                 mCar.SetX(1600);
                 if (!mRoundLost) {
                     mIntCounter++;
                     if (mIntCounter % 3 == 0) {
                         mCarSpeed++;
                     }
+                }
+                switch (rand() %4) {
+                case 0:
+                    mCarState = CarState::NORMAL;
+                    break;
+                case 1:
+                    mCarState = CarState::SLOWFAST;
+                    break;
+                case 2:
+                    mCarState = CarState::STOPFAST;
+                    break;
+                case 3:
+                    mCarState = CarState::TRICK;
+                    break;
                 }
                 mRoundLost = false;
             }
@@ -94,17 +144,22 @@ private:
     int mScore{ 0 };
     int mFrames{ 0 };
 
+    int mCarTimer{ 0 };
     int mCarSpeed{ 10 };
     int mJumpPos{ 100 };
     int mJumpTime{ 0 };
     float mFallTime{ 0 };
-    std::pair<int, int> charPos = std::make_pair(100, 100);
-    std::pair<int, int> enemyPos = std::make_pair(900, 75);
-
+    
     bool mRoundLost = false;
     int mIntCounter = 0;
     Counter mCountDrawer;
 
+    enum class CarState {
+        NORMAL,
+        STOPFAST,
+        SLOWFAST,
+        TRICK
+    }mCarState{CarState::NORMAL};
     enum class GameState {
         PLAYING,
         LOST
@@ -134,9 +189,12 @@ private:
             break;
         case LIZKIT_KEY_ENTER:
            if (mGameState == GameState::LOST) {
-               mIntCounter = 0;
                mCharacter.SetHP(3);
+               mCharacter.SetY(100);
+               mCarSpeed = 10;
                mGameState = GameState::PLAYING;
+               mJumpState = CharState::STILL;
+               mIntCounter = 0;
            }
             break;
         }
