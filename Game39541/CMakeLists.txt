@@ -1,4 +1,4 @@
-add_executable(Game39541 Game39541.cpp)
+add_executable(Game39541 Game39541.cpp Counter.h)
 
 include_directories(../Lizkit)
 

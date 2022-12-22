@@ -16,9 +16,16 @@ else()
 endif()
 
 add_definitions(-DLIZKIT_DEBUG)
+add_definitions(-DLIZKIT_OPENGL)
   
 add_subdirectory(Game39541)
 add_subdirectory(Lizkit)
 add_subdirectory(glfw)
+add_subdirectory(glad)
+add_subdirectory(stbi)
 
 set(VS_STARTUP_PROJECT Game39541)
+
+file(COPY Game39541/Assets DESTINATION ${PROJECT_BINARY_DIR}/Game39541)
+file(COPY Game39541/Assets DESTINATION ${PROJECT_BINARY_DIR}/Debug)
+file(COPY Game39541/Assets DESTINATION ${PROJECT_BINARY_DIR}/Release)
