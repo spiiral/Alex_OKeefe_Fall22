@@ -80,7 +80,6 @@
     </Link>
   </ItemDefinitionGroup>
   <ItemGroup>
-    <ClInclude Include="Counter.h" />
     <ClInclude Include="Event.h" />
     <ClInclude Include="GLFWcode\GLFWimplement.h" />
     <ClInclude Include="Unit.h" />
