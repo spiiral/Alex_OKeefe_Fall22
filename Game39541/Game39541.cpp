@@ -7,6 +7,7 @@
 #include "Lizkit.h"
 #include "Counter.h"
 #include "Unit.h"
+#include <cmath>
 
 
 class Game39541 : public Lizkit::LizkitApp {
@@ -14,26 +15,32 @@ class Game39541 : public Lizkit::LizkitApp {
 public:
     void OnUpdate() override {
         if (mJumpState == CharState::JUMP) {
-            if (mCharacter.GetY() == 100) {
-                mJumpSpeed = 10;
+            mJumpTime++;
+            if (mJumpTime % 60 == 0) {
+                LIZKIT_LOG("one second has passed")
             }
-            else {
-                mJumpSpeed = 10 - (1*(mCharacter.GetY()/50));
-            }
-            mCharacter.ChangeY(mJumpSpeed);
-            if (mCharacter.GetY() >= 400) {
+            mJumpPos += 10;
+            mCharacter.SetY(mJumpPos);
+
+            if (mJumpPos >= 400) {
+                mJumpPos = 400;
                 mJumpState = CharState::FALL;
+            }
+            if (mJumpPos <= 100) {
+                mJumpPos == 100;
+                mJumpState = CharState::STILL;
             }
         }
         if (mJumpState == CharState::FALL) {
-            mJumpSpeed = 0 - (1 + (1400/mCharacter.GetY()));
-            mCharacter.ChangeY(mJumpSpeed);
+            mJumpPos -= 10;
+            mCharacter.SetY(mJumpPos);
             if (mCharacter.GetY() <= 100) {
                 mCharacter.SetY(100);
                 mJumpState = CharState::STILL;
             }
         }
         if (mState == CharState::MOVE_RIGHT) {
+          //  if(mCharacter.GetX() > 0)
             mCharacter.ChangeX(8);
         }
         if (mState == CharState::MOVE_LEFT) {
@@ -74,7 +81,9 @@ private:
     int mScore{ 0 };
     int mFrames{ 0 };
 
-    int mJumpSpeed{ 10 };
+    int mJumpPos{ 100 };
+    int mJumpTime{ 0 };
+    float mFallTime{ 0 };
     std::pair<int, int> charPos = std::make_pair(100, 100);
     std::pair<int, int> enemyPos = std::make_pair(900, 75);
 
@@ -100,6 +109,7 @@ private:
             break;
         case LIZKIT_KEY_SPACE:
             if (mJumpState == CharState::STILL) {
+                mJumpTime = 0;
                 mJumpState = CharState::JUMP;
             }
             break;
