@@ -1,5 +1,4 @@
-# OKeefe_Alex_Fall22
-How to run:
+# RUN INSTRUCTIONS
 1. clone repo using git clone (link) --recursive
 2. there is a CMakeLists.txt file in the glfwCMake folder. move this to glfw folder.
 3. go to cmake tool, set source code to folder Alex_OKeefe_Fall22, configure 
