@@ -27,6 +27,7 @@ namespace Lizkit{
 		int GetZ() const;
 
 		int ChangeHP(int hpDiff);
+		void SetHP(int hp);
 		int GetHP() const;
 
 		bool OverlapsWith(const Unit& other) const;

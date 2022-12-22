@@ -63,6 +63,10 @@ namespace Lizkit {
 		return mHP;
 	}
 
+	void Unit::SetHP(int hp){
+		mHP = hp;
+	}
+
 	int Unit::GetHP() const {
 		return mHP;
 	}
