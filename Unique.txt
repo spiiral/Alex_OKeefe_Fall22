@@ -5,8 +5,8 @@ comes. The player must jump over the car. You can move left and right in the air
 over the car without colliding with it, the point counter goes up and the difficulty is incremented. 
 I set it so that every 3 rounds the player wins, the speed of the car increases. 
 Also, the car can take one of 4 "paths" each round (static speed, slow-fast, slow-stop-fast, fast-slow-fast). 
-The player has three lives, shown in the top left corner. Once the player loses all 3 lives, they are shown a 
-losing screen where they can choose to play again.
+The player has three lives, shown in the top left corner. Every time the player collides with the car, they lose a
+life. Once the player loses all 3 lives, they are shown a losing screen where they can choose to play again.
 
 The controls are: SPACE to jump, LEFT ARROW to move left, RIGHT ARROW to move right, ENTER to restart upon loss
 
